@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Beyonder Portal <-> TMetric Sync
 // @namespace    https://portal.beyonder.de/
-// @version      1.2.0
+// @version      1.2.1
 // @description  Automatically import TMetric time entries into Beyonder Portal & sync assigned Portal projects to TMetric
 // @author       Beyonder Team
 // @match        https://portal.beyonder.de/*
