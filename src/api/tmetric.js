@@ -187,7 +187,7 @@ export async function fetchTMetricProjects() {
     accountId = user.activeAccountId;
   }
 
-  const url = `${TMETRIC_BASE_URL}/accounts/${accountId}/projects`;
+  const url = `${TMETRIC_BASE_URL}/accounts/${accountId}/timeentries/projects`;
   const projects = await httpRequest({
     url,
     headers: {

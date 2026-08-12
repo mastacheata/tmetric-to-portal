@@ -291,7 +291,7 @@
       accountId = u.activeAccountId;
     }
     const projects = await httpRequest({
-      url: `${TMETRIC_BASE}/accounts/${accountId}/projects`,
+      url: `${TMETRIC_BASE}/accounts/${accountId}/timeentries/projects`,
       headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' },
     });
     return Array.isArray(projects) ? projects : [];
