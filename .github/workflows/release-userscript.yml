@@ -1,0 +1,52 @@
+name: Release Userscript
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'tmetric-portal-sync.user.js'
+      - 'README.md'
+      - '.github/**'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Bump Version
+        id: bump
+        run: |
+          NEW_VERSION=$(node scripts/bump-version.js)
+          echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Commit & Push Version Bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tmetric-portal-sync.user.js
+          git commit -m "chore(release): bump version to v${{ steps.bump.outputs.version }} [skip ci]"
+          git push origin main
+
+      - name: Create Tag & Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ steps.bump.outputs.version }}"
+          name: "Release v${{ steps.bump.outputs.version }}"
+          body: "Automated release for Beyonder Portal <-> TMetric Sync Userscript v${{ steps.bump.outputs.version }}."
+          files: |
+            tmetric-portal-sync.user.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
