@@ -244,10 +244,14 @@ export async function createTMetricProject(projectData) {
     name: projectData.name,
   };
   if (projectData.code && projectData.code.trim()) {
-    payload.code = projectData.code.trim();
+    const codeVal = projectData.code.trim();
+    payload.code = codeVal;
+    payload.projectCode = codeVal;
   }
   if (projectData.clientId) {
-    payload.clientId = parseInt(projectData.clientId, 10);
+    const clientIdNum = parseInt(projectData.clientId, 10);
+    payload.client = { id: clientIdNum };
+    payload.clientId = clientIdNum;
   }
 
   const url = `${TMETRIC_BASE_URL}/accounts/${accountId}/projects`;

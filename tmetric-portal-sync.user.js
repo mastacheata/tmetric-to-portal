@@ -321,8 +321,16 @@
       accountId = u.activeAccountId;
     }
     const payload = { name: projectData.name };
-    if (projectData.code && projectData.code.trim()) payload.code = projectData.code.trim();
-    if (projectData.clientId) payload.clientId = parseInt(projectData.clientId, 10);
+    if (projectData.code && projectData.code.trim()) {
+      const codeVal = projectData.code.trim();
+      payload.code = codeVal;
+      payload.projectCode = codeVal;
+    }
+    if (projectData.clientId) {
+      const clientIdNum = parseInt(projectData.clientId, 10);
+      payload.client = { id: clientIdNum };
+      payload.clientId = clientIdNum;
+    }
 
     return await httpRequest({
       method: 'POST',
