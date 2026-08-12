@@ -1,0 +1,12 @@
+# Credentials and tokens
+.tmetric-token
+*.env
+*.local
+
+# OS / Download metadata
+*.Zone.Identifier
+.DS_Store
+Thumbs.db
+
+# Node modules
+node_modules/
